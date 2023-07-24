@@ -29,25 +29,25 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util.js';
 
     /**************************************************************************** */
     // Get a signed url to put a new item in the bucket
-  app.get('/filteredimage',
-  async (req: express.Request, res: express.Response) => {
-    let { image_url } = req.query;
+    app.get('/filteredimage',
+    async (req: express.Request, res: express.Response) => {
+      let { image_url } = req.query;
 
-    if (!image_url) {
-      return res.status(400).send({ message: 'image url is required or malformed' });
-    }
+      if (!image_url) {
+        return res.status(400).send({ message: 'image url is required or malformed' });
+      }
 
-    filterImageFromURL(image_url)
-      .then(local_path => {
-        res.sendFile(local_path, err => {
-          deleteLocalFiles([local_path]);
+      filterImageFromURL(image_url)
+        .then(local_path => {
+          res.sendFile(local_path, err => {
+            deleteLocalFiles([local_path]);
+          })
         })
-      })
-      .catch(err => {
-        res.status(400).send({ message: 'image url is required or malformed' });
-      });
+        .catch(err => {
+          res.status(400).send({ message: 'image url is required or malformed' });
+        });
 
-  });
+    });
 
   //! END @TODO1
   
