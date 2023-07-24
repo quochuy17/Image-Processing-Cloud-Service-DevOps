@@ -2,7 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import {filterImageFromURL, deleteLocalFiles} from './util/util.js';
 
-
+(async () => {
 
   // Init the Express application
   const app = express();
@@ -28,6 +28,26 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util.js';
   //   the filtered image file [!!TIP res.sendFile(filteredpath); might be useful]
 
     /**************************************************************************** */
+    // Get a signed url to put a new item in the bucket
+  app.get('/filteredimage',
+  async (req: express.Request, res: express.Response) => {
+    let { image_url } = req.query;
+
+    if (!image_url) {
+      return res.status(400).send({ message: 'image url is required or malformed' });
+    }
+
+    filterImageFromURL(image_url)
+      .then(local_path => {
+        res.sendFile(local_path, err => {
+          deleteLocalFiles([local_path]);
+        })
+      })
+      .catch(err => {
+        res.status(400).send({ message: 'image url is required or malformed' });
+      });
+
+  });
 
   //! END @TODO1
   
@@ -43,3 +63,4 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util.js';
       console.log( `server running http://localhost:${ port }` );
       console.log( `press CTRL+C to stop server` );
   } );
+})();
