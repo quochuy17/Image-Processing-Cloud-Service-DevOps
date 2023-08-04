@@ -1,6 +1,5 @@
 import express from 'express';
-import {filterImageFromURL, deleteLocalFiles} from './util/util';
-import { reject } from 'bluebird';
+import {filterImageFromURL, deleteLocalFiles} from './util/util.js';
 import bodyParser from 'body-parser';
 
 (async () => {

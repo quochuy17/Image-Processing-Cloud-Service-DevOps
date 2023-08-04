@@ -9,7 +9,7 @@
     "start": "node server.js",
     "clean": "rm -rf www/ || true",
     "build": "npm run clean && tsc && cp package.json www/package.json && mkdirp www/tmp/ && cd www && zip -r Archive.zip . && cd ..",
-    "dev": "ts-node-dev --respawn --transpileOnly ./src/server.ts",
+    "dev": "node server.js",
     "ts-node": "^10.4.0",
     "typescript": "^4.4.4"
   },
