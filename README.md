@@ -22,3 +22,6 @@ Successful URL responses should have a 200 code. Ensure that you include error c
 ## License
 
 [License](LICENSE.txt)
+
+## URL Elastic Beanstalk
+http://huy-project-2-dev.us-east-1.elasticbeanstalk.com/
